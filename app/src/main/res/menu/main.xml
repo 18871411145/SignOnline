@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/self_item"
+        android:title="个人主页">
+    </item>
+    <item
+        android:id="@+id/addzl_item"
+        android:title="添加专利">
+    </item>
+
+</menu>

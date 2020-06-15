@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -75,13 +76,14 @@ public class ZhuanLi_Activity extends AppCompatActivity implements MySearchView.
         refreshLayout.setOnLoadMoreListener(this);
         searchView.searchInterface = this;
 
-        getData(null);
+        getData(null,false);
 
     }
 
+    int have=0;
     //得到首页专利列表
-    private void getData(String s){
-        zhuanLis.clear();
+    private void getData(String s,boolean more){
+        zhuanLis=new ArrayList<>();
 
 //如果重新设置适配器 要重新设置布局管理
 //        StaggeredGridLayoutManager _sGridLayoutManager = new StaggeredGridLayoutManager(2,
@@ -91,6 +93,9 @@ public class ZhuanLi_Activity extends AppCompatActivity implements MySearchView.
         String url=null;
         if(s==null){
           url= Funcs.servUrl(Const.Key_Resp_Path.zhuanli);
+          if(more){
+              url= Funcs.servUrlWQ(Const.Key_Resp_Path.zhuanli,"m="+have);
+          }
         }else{
             url=Funcs.servUrlWQ(Const.Key_Resp_Path.zhuanli,"s="+s);
         }
@@ -102,6 +107,7 @@ public class ZhuanLi_Activity extends AppCompatActivity implements MySearchView.
                 parseData(jsonObject);
                 }
                 refreshLayout.finishRefresh();
+                refreshLayout.finishLoadMore();
             }
 
             @Override
@@ -113,6 +119,7 @@ public class ZhuanLi_Activity extends AppCompatActivity implements MySearchView.
                     Funcs.showtoast(ZhuanLi_Activity.this,"连接失败");
                 }
                     refreshLayout.finishRefresh();
+                    refreshLayout.finishLoadMore();
             }
         });
 
@@ -126,10 +133,9 @@ public class ZhuanLi_Activity extends AppCompatActivity implements MySearchView.
                 for(int i=0;i<data.length();i++){
                     zhuanLis.add(new ZhuanLi(data.getJSONObject(i)));
                 }
-
+                have=zhuanLis.size();
                 Collections.sort(zhuanLis);
-
-                viewAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(viewAdapter);
             }else{
                 Funcs.showtoast(ZhuanLi_Activity.this,"数据获取失败失败");
             }
@@ -142,19 +148,19 @@ public class ZhuanLi_Activity extends AppCompatActivity implements MySearchView.
     //搜索框回调接口
     @Override
     public void search(String str) {
-         getData(str);
+         getData(str,false);
     }
 
     //刷新列表
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        getData(null);
+        getData(null,false);
     }
 
     //列表加载更多
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-        refreshLayout.finishLoadMore();
+        getData(null,true);
     }
 
 

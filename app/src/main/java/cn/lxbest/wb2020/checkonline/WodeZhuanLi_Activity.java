@@ -83,6 +83,7 @@ public class WodeZhuanLi_Activity extends AppCompatActivity implements OnRefresh
                 }
 
                 refreshLayout.finishRefresh();
+                refreshLayout.finishLoadMore();
             }
 
             @Override
@@ -93,6 +94,7 @@ public class WodeZhuanLi_Activity extends AppCompatActivity implements OnRefresh
                     Funcs.showtoast(WodeZhuanLi_Activity.this,"连接失败");
                 }
                 refreshLayout.finishRefresh();
+                refreshLayout.finishLoadMore();
             }
         });
 
@@ -126,7 +128,7 @@ public class WodeZhuanLi_Activity extends AppCompatActivity implements OnRefresh
     //列表加载更多
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-        refreshLayout.finishLoadMore();
+        getData();
     }
 
 

@@ -216,7 +216,7 @@ public class ZhuanLi_Activity extends AppCompatActivity implements MySearchView.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //判断该用户是否有添加权限
-        if(App.user.role>=990){
+        if(App.user.role>=Const.Role.Admin){
             getMenuInflater().inflate(R.menu.main, menu);
         }else{
             getMenuInflater().inflate(R.menu.main1, menu);

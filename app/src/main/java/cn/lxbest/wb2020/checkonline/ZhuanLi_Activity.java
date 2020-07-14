@@ -85,10 +85,10 @@ public class ZhuanLi_Activity extends AppCompatActivity implements MySearchView.
     private void getData(String s,boolean more){
         zhuanLis=new ArrayList<>();
 
-//如果重新设置适配器 要重新设置布局管理
-//        StaggeredGridLayoutManager _sGridLayoutManager = new StaggeredGridLayoutManager(2,
-//                StaggeredGridLayoutManager.VERTICAL);
-//        recyclerView.setLayoutManager(_sGridLayoutManager);
+//如果重新设置适配器 要重新设置布局管理(或者用notify)
+        StaggeredGridLayoutManager _sGridLayoutManager = new StaggeredGridLayoutManager(2,
+                StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(_sGridLayoutManager);
 
         String url=null;
         if(s==null){
@@ -177,7 +177,7 @@ public class ZhuanLi_Activity extends AppCompatActivity implements MySearchView.
     }
 
 
-    public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
+    public class  RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
 
         public RecyclerViewAdapter() {
 

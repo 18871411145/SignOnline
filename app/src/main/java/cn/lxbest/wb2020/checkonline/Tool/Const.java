@@ -7,7 +7,7 @@ import java.util.List;
 public class Const {
 
     public static final String domain = "cn.lxbest.wb2020.checkonline";
-    public static final String server = "http://39.100.102.110/checkonline_service";
+    public static final String server = "http://39.100.102.110";
     public static final String qnserver = "http://qnyeyimg.lxbest.cn";
     public static final String contentType="application/json";
 

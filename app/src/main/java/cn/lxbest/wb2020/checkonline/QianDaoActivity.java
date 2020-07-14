@@ -158,21 +158,6 @@ public class QianDaoActivity extends AppCompatActivity implements Check_Service.
 
 
 
-
-    Check_Service.MyBinder binder;
-
-    private ServiceConnection connection=new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            binder= (Check_Service.MyBinder) service;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            Funcs.showtoast(QianDaoActivity.this,"服务已断开，请重启app");
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -195,9 +180,6 @@ public class QianDaoActivity extends AppCompatActivity implements Check_Service.
         text_gs.setText(App.user.gsmc);
 
 
-        //绑定Service
-//        Intent intent=new Intent(this,Check_Service.class);
-//        bindService(intent, connection, Service.BIND_AUTO_CREATE);
         Intent intent=new Intent(this,Check_Service.class);
         startService(intent);
 

@@ -29,7 +29,6 @@ import cz.msebera.android.httpclient.Header;
 public class Check_Service extends Service {
 
     private WifiManager wifiManager;
-    MyBinder binder=new MyBinder();
 
     public static String wifi=null;
 
@@ -54,7 +53,7 @@ public class Check_Service extends Service {
                 handler.postDelayed(this,60*1000*2);
             }
         };
-        handler.postDelayed(runnable, 2000);
+        handler.post(runnable);
     }
 
     @Override
@@ -68,7 +67,6 @@ public class Check_Service extends Service {
         wifiManager= (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         WifiInfo info=wifiManager.getConnectionInfo();
         wifi=info.getSSID().replace("\"","");
-//        wifi="testwifi";
         Log.i("wifi:",wifi);
 
        Calendar now = Calendar.getInstance();
@@ -111,21 +109,14 @@ public class Check_Service extends Service {
     }
 
 
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent){
-        return binder;
-    }
-
-
-    public class MyBinder extends Binder{
-        public String getWiFiId(){
-            return wifi;
-        }
-    }
-
     @Override
     public void onDestroy() {
         handler.removeCallbacks(runnable);
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 }
